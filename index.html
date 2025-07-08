@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WorldView</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4273/4273189.png" />
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <canvas id="particle-canvas"></canvas>
+  <div id="loadingOverlay"><div class="spinner"></div></div>
+  <header class="animate__animated animate__fadeInDown">
+    <h1 id="dynamicTitle">🌏 WorldView</h1>
+    <div class="language-switch">
+      <button data-lang="en" id="langEn">English</button>
+      <button data-lang="zh" id="langZh">中文</button>
+      <button data-lang="ja" id="langJa">日本語</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="search-box animate__animated animate__fadeInUp">
+      <span id="typingText" class="typing"></span>
+      <input type="text" id="cityInput" placeholder="Enter city name" />
+      <button id="searchBtn">🔍 Search</button>
+      <button id="locationBtn">📍 Use My Location</button>
+      <button id="saveBtn">⭐ Save this city</button>
+      <button id="viewSavedBtn">📂 View Saved Cities</button>
+      <button id="compareBtn">🆚 Compare Cities</button>
+    </div>
+
+    <div class="map-style-switch">
+      <button id="shareBtn">🔗 Share This City</button>
+      <button id="nightModeBtn">🌙 Toggle Night Mode</button>
+    </div>
+
+    <div id="map" class="animate__animated animate__fadeIn"></div>
+
+    <!-- 主卡片 -->
+    <div class="flip-card" id="mainCard">
+      <div class="flip-inner" id="mainFlip">
+        <div class="flip-front" id="mainCardFront"></div>
+        <div class="flip-back" id="mainCardBack"></div>
+      </div>
+    </div>
+
+    <!-- 城市对比卡片 -->
+    <div id="compareCards" class="compare-cards hidden">
+      <div class="flip-card">
+        <div class="flip-inner" id="compareFlip1">
+          <div class="flip-front" id="compareCard1Front"></div>
+          <div class="flip-back" id="compareCard1Back"></div>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div class="flip-inner" id="compareFlip2">
+          <div class="flip-front" id="compareCard2Front"></div>
+          <div class="flip-back" id="compareCard2Back"></div>
+        </div>
+      </div>
+      <div id="cancelCompareArea" class="cancel-compare">
+        <button id="cancelCompareBtn">❌ Cancel Comparison</button>
+      </div>
+    </div>
+  </main>
+
+  <div id="savedCitiesPopup" class="popup hidden">
+    <div class="popup-content">
+      <h3 id="savedCitiesTitle">⭐ Saved Cities</h3>
+      <ul id="savedCitiesList"></ul>
+      <button id="closeSavedBtn" class="close-btn">✖ Close</button>
+    </div>
+  </div>
+
+  <footer><p id="footerText">Made by Cai Jiacheng | Hosted on GitHub</p></footer>
+</body>
+</html>

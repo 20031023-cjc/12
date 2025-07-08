@@ -1,0 +1,206 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to bottom, #fdf6ec, #faeee7);
+  color: #333;
+  text-align: center;
+  transition: background 0.6s, color 0.3s;
+}
+
+body.sunny {
+  background: linear-gradient(to top, #fceabb 0%, #f8b500 100%);
+}
+body.rainy {
+  background: linear-gradient(to top, #3a6186 0%, #89253e 100%);
+}
+body.snowy {
+  background: linear-gradient(to top, #e6dada 0%, #274046 100%);
+}
+body.cloudy {
+  background: linear-gradient(to top, #d7d2cc 0%, #304352 100%);
+}
+body.night-mode, body.starry {
+  background: linear-gradient(to bottom, #141e30 0%, #243b55 100%);
+  color: #fff;
+}
+
+#particle-canvas {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+}
+
+header, .search-box, #map, .flip-card, .compare-cards, .popup, footer {
+  position: relative;
+  z-index: 10;
+}
+
+/* 波纹效果按钮 */
+button {
+  margin: 0.5rem;
+  padding: 8px 12px;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  background-color: #ffcf88;
+  color: #4b2e1e;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s, box-shadow 0.2s;
+  overflow: hidden;
+  position: relative;
+}
+button:active {
+  transform: scale(0.96);
+  box-shadow: 0 2px 10px #ffd70066;
+}
+button .ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-effect 0.5s linear;
+  background: rgba(255,255,255,0.6);
+  pointer-events: none;
+}
+@keyframes ripple-effect {
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* 卡片丝滑动画+浮雕感 */
+.flip-card {
+  perspective: 1000px;
+  width: 300px;
+  height: 210px;
+  margin: 2.5rem auto;
+  background: transparent;
+  box-shadow: 0 6px 28px 0 rgba(0,0,0,0.12), 0 1.5px 4.5px 0 rgba(0,0,0,0.10);
+  transition: box-shadow 0.4s;
+}
+.flip-card:active {
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.13);
+}
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.9s cubic-bezier(0.45,0.05,0.55,0.95);
+}
+.flip-inner.flipped {
+  transform: rotateY(180deg);
+}
+.flip-front, .flip-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  backdrop-filter: blur(12px);
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.flip-front {
+  background: rgba(255,255,255,0.82);
+  color: #333;
+}
+.flip-back {
+  background: rgba(0,0,0,0.82);
+  color: #fff;
+  transform: rotateY(180deg);
+}
+
+#map {
+  height: 400px;
+  margin: 2rem auto;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  backdrop-filter: blur(6px);
+}
+
+.popup {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  padding: 1rem;
+  z-index: 999;
+}
+.popup.hidden {
+  display: none;
+}
+.compare-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  margin-bottom: 3rem;
+}
+.compare-cards.hidden {
+  display: none;
+}
+@media (max-width: 768px) {
+  .compare-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.cancel-compare {
+  text-align: center;
+  margin-top: 1rem;
+}
+.cancel-compare button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #ffaaaa;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #333;
+  transition: all 0.3s;
+}
+.cancel-compare button:hover {
+  background-color: #ff8888;
+}
+.cancel-compare.hidden {
+  display: none;
+}
+footer {
+  margin-top: 2rem;
+  color: #666;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+#loadingOverlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(255,255,255,0.7);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+#loadingOverlay.active { display: flex; }
+.spinner {
+  border: 7px solid #ffdeae;
+  border-top: 7px solid #ffc266;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg);}
+}
